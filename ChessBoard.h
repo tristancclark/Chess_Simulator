@@ -8,6 +8,7 @@ class ChessBoard
 
   ChessPiece* current_board[8][8];
   Colour current_turn;
+  void nextTurn() {current_turn == White? current_turn = Black : current_turn = White;}
 public:
   ChessBoard();
   ~ChessBoard();
@@ -15,8 +16,8 @@ public:
   void setBoard();
   void resetBoard();
   void displayBoard();
-  void submitMove(const char source_square[2], const char destination_square[2]);
-  void makeMove(int s_row, int s_column, int d_row, int d_column);
+  void submitMove(const char *source_square, const char *destination_square);
+  void makeMove(ChessPiece *&s_piece, ChessPiece *&d_piece);
 };
 
 

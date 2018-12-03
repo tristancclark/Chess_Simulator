@@ -1,7 +1,7 @@
 OBJ = ChessPiece.o	ChessBoard.o	main.o
 EXE = main
 CXX = g++
-CXXFLAGS = -Wall	-g	-MMD
+CXXFLAGS = -Wall	-g	-MMD	-std=c++11
 
 $(EXE): $(OBJ)
 	$(CXX) $^ -o $@

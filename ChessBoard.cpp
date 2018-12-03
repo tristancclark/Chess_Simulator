@@ -74,18 +74,62 @@ void ChessBoard::setBoard()
   }
 }
 
-void ChessBoard::submitMove(const char source_square[2], const char destination_square[2])
+void ChessBoard::submitMove(const char* source_square, const char* destination_square)
 {
   int ascii_letter_shift = 'A';
-  int ascii_number_shift = '0' - 8;
+  int ascii_number_shift = '0' + 8;
   int s_row = abs(static_cast<int>(source_square[1]) - ascii_number_shift);
   int s_column = static_cast<int>(source_square[0]) - ascii_letter_shift;
-  int d_row = abs(static_cast<int>(source_square[1]) - ascii_number_shift);
+  int d_row = abs(static_cast<int>(destination_square[1]) - ascii_number_shift);
   int d_column = static_cast<int>(destination_square[0]) - ascii_letter_shift;
-  ChessPiece *s_piece = current_board[s_row][s_column];
-  ChessPiece *d_piece = current_board[d_row][d_column];
+  ChessPiece *&s_piece = current_board[s_row][s_column];
+  ChessPiece *&d_piece = current_board[d_row][d_column];
+
+  if (source_square == destination_square)
+  {
+    cerr << "The destination square is the same as the source square. Please make another move." << endl;
+    return;
+  }
+
+  if (s_piece == nullptr) //does piece exist in source
+  {
+    cerr << "There is no piece to move in that square. Please make another move." << endl;
+    return;
+  }
+
+  if (s_piece->getColour() != current_turn) //is it that teams turn
+  {
+    cerr << "It is not " << s_piece->getColour() << "'s turn. " << current_turn << " please make a move." << endl;
+    return;
+  }
+
+  if (d_piece != nullptr) //avoid segfault
+  {
+    if (d_piece->getColour() == current_turn) //teams own piece lies in d_square
+    {
+      cerr << "A " << current_turn << " piece lies in the destination square. Please make another move." << endl;
+      return;
+    }
+  }
+
+  if (!s_piece->isValidMove(s_row, s_column, d_row, d_column, current_board))
+  {
+    cerr << "That is not a valid move. Please make another move." << endl;
+    return;
+  }
+
+  //make move
+  makeMove(s_piece, d_piece);
+  //change turn
+  nextTurn();
 }
 
+void ChessBoard::makeMove(ChessPiece *&s_piece, ChessPiece *&d_piece)
+{
+  delete d_piece;
+  d_piece = s_piece;
+  s_piece = nullptr;
+}
 
 void ChessBoard::displayBoard()
 {
