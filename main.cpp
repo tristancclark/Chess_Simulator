@@ -24,15 +24,15 @@ int main() {
   cb.displayBoard();
   cb.submitMove("G2", "G3");
   cb.displayBoard();
-  cb.submitMove("F8", "E3");
-  cb.displayBoard();
+  //cb.submitMove("F8", "E3");
+  //cb.displayBoard();
   cb.submitMove("E2", "E3");
   cb.displayBoard();
   cb.submitMove("F2", "E3");
   cb.displayBoard();
   //blacsk go
   cout << "Blacks go" << endl;
-  cb.submitMove("D8", "B4");
+  cb.submitMove("H7", "H6");
   cb.displayBoard();
   cb.submitMove("A3", "B4");
   cb.displayBoard();
@@ -60,9 +60,81 @@ int main() {
   cb.displayBoard();
   cb.submitMove("A5", "E5");
   cb.displayBoard();
-  cb.submitMove("A5", "F8");
+  cb.submitMove("C7", "C6");
   cb.displayBoard();
 
+
+  cout << "bishops test" << endl;
+
+  cb.submitMove("C1", "E3");
+  cb.displayBoard();
+  cb.submitMove("F1", "H3");
+  cb.displayBoard();
+  cb.submitMove("F8", "F6");
+  cb.displayBoard();
+  cb.submitMove("C8", "A6");
+  cb.displayBoard();
+  cb.submitMove("H3", "D7");
+  cb.displayBoard();
+  cb.submitMove("A6", "B5");
+  cb.displayBoard();
+  cb.submitMove("A6", "B7");
+  cb.displayBoard();
+
+  cout << "knights test" << endl;
+
+  cb.submitMove("B1", "C3");
+  cb.displayBoard();
+  cb.submitMove("B8", "C6");
+  cb.displayBoard();
+  cb.submitMove("B8", "A6");
+  cb.displayBoard();
+  cb.submitMove("C3", "E4");
+  cb.displayBoard();
+  cb.submitMove("A6", "B4");
+  cb.displayBoard();
+  cb.submitMove("E4", "G3");
+  cb.displayBoard();
+  cb.submitMove("E4", "C3");
+  cb.displayBoard();
+
+  cout << "kings test" << endl;
+
+  cb.submitMove("D8", "B8");
+  cb.displayBoard();
+  cb.submitMove("H2", "H3");
+  cb.displayBoard();
+  cb.submitMove("E8", "D8");
+  cb.displayBoard();
+  cb.submitMove("E1", "F1");
+  cb.displayBoard();
+  cb.submitMove("D8", "C7");
+  cb.displayBoard();
+  cb.submitMove("F1", "E2");
+  cb.displayBoard();
+  cb.submitMove("F1", "G2");
+  cb.displayBoard();
+  cb.submitMove("C7", "D7");
+  cb.displayBoard();
+
+  cout << "queens test" << endl;
+
+  cb.submitMove("D1", "D3");
+  cb.displayBoard();
+  cb.submitMove("D1", "A4");
+  cb.displayBoard();
+  cb.submitMove("B8", "E6");
+  cb.displayBoard();
+  cb.submitMove("B8", "E5");
+  cb.displayBoard();
+  cb.submitMove("A4", "E4");
+  cb.displayBoard();
+  cb.submitMove("A4", "B5");
+  cb.displayBoard();
+  cb.submitMove("E5", "D5");
+  cb.displayBoard();
+  cb.submitMove("B5", "E8");
+  cb.displayBoard();
 
 return 0;
 }

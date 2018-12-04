@@ -48,20 +48,20 @@ public:
   bool isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPiece *cb[8][8]) override;
 };
 
-class Knight : public ChessPiece
-{
-public:
-  Knight(Colour colour);
-  ~Knight(){}
-  bool isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPiece *cb[8][8]) {return true;}
-};
-
 class Bishop : public ChessPiece
 {
 public:
   Bishop(Colour colour);
   ~Bishop(){}
-  bool isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPiece *cb[8][8]) {return true;}
+  bool isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPiece *cb[8][8]) override;
+};
+
+class Knight : public ChessPiece
+{
+public:
+  Knight(Colour colour);
+  ~Knight(){}
+  bool isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPiece *cb[8][8]) override;
 };
 
 class King : public ChessPiece
@@ -69,7 +69,7 @@ class King : public ChessPiece
 public:
   King(Colour colour);
   ~King(){}
-  bool isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPiece *cb[8][8]) {return true;}
+  bool isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPiece *cb[8][8]) override;
 };
 
 class Queen : public ChessPiece
@@ -77,7 +77,7 @@ class Queen : public ChessPiece
 public:
   Queen(Colour colour);
   ~Queen(){}
-  bool isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPiece *cb[8][8]) {return true;}
+  bool isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPiece *cb[8][8]) override;
 };
 
 #endif //CHESSPIECE_H
