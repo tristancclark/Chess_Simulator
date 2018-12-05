@@ -14,6 +14,44 @@ int main() {
   ChessBoard cb;
   cout << endl;
 
+
+  cb.displayBoard();
+  cb.submitMove("C2", "C3");
+  cb.displayBoard();
+  cb.submitMove("D7", "D6");
+  cb.displayBoard();
+  cb.submitMove("D1", "A4");
+  cb.displayBoard();
+  cb.submitMove("D7", "D6");
+  cb.displayBoard();
+  cb.submitMove("D1", "A4");
+  cb.displayBoard();
+  cb.submitMove("E8", "G8");
+/*
+//check tests
+cb.displayBoard();
+cb.submitMove("C2", "C3");
+cb.displayBoard();
+cb.submitMove("D7", "D6");
+cb.displayBoard();
+cb.submitMove("D1", "A4");
+cb.displayBoard();
+cb.submitMove("E8", "D7");
+cb.displayBoard();
+cb.submitMove("C7", "C6");
+cb.displayBoard();
+cb.submitMove("A4", "C6");
+cb.displayBoard();
+cb.submitMove("B8", "C6");
+cb.displayBoard();
+*/
+
+//cout << cb.isInCheck(Black);
+
+
+
+
+/*
 //pawn tests
   cb.displayBoard();
   cb.submitMove("A2", "A3");
@@ -135,6 +173,7 @@ int main() {
   cb.displayBoard();
   cb.submitMove("B5", "E8");
   cb.displayBoard();
+  */
 
 return 0;
 }

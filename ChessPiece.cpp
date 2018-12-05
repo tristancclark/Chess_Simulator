@@ -4,18 +4,13 @@
 using namespace std;
 
 //CHESSPIECE FUNCTIONS
-ChessPiece::ChessPiece(Colour col, char n) : colour(col)
-{
-  if (col == White)
-    name = tolower(n);
-  else
-    name = n;
-}
+ChessPiece::ChessPiece(Colour col, char n) : colour(col), been_moved(false)
+{}
 
 ChessPiece::~ChessPiece() {}
 
 //PAWN FUNCTIONS
-Pawn::Pawn(Colour colour) : ChessPiece(colour, 'P'), been_moved(false){}
+Pawn::Pawn(Colour colour) : ChessPiece(colour, 'P'){}
 
 bool Pawn::isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPiece *cb[8][8])
 {
@@ -29,20 +24,19 @@ bool Pawn::isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPi
   {
     if (s_column != d_column) //if pawn tries to move out of column
     {
+
       return false;
     }
 
     if (move_forward == 1) //move forwards 1 always valid
     {
-      been_moved = true;
       return true;
     }
 
-    if (!been_moved && move_forward == 2) //not been moved and move forwards 2
+    if (!hasBeenMoved() && move_forward == 2) //not been moved and move forwards 2
     {
       if (cb[s_row + direction][s_column] == nullptr) //square ahead is empty
       {
-        been_moved = true;
         return true;
       }
     }
@@ -52,10 +46,18 @@ bool Pawn::isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPi
   //if opposite colour in desination square
   if (move_forward == 1 && move_side == 1)
   {
-    been_moved = true;
     return true;
   }
   return false;
+}
+
+char Pawn::getName()
+{
+  if (getColour() == White)
+  {
+    return 'p';
+  }
+  return 'P';
 }
 
 //CASTLE FUNCTIONS
@@ -94,6 +96,15 @@ bool Castle::isValidMove(int s_row, int s_column, int d_row, int d_column, Chess
     return true;
   }
   return false;
+}
+
+char Castle::getName()
+{
+  if (getColour() == White)
+  {
+    return 'c';
+  }
+  return 'C';
 }
 
 //BISHOP FUNCTIONS
@@ -140,6 +151,15 @@ bool Bishop::isValidMove(int s_row, int s_column, int d_row, int d_column, Chess
   return true;
 }
 
+char Bishop::getName()
+{
+  if (getColour() == White)
+  {
+    return 'b';
+  }
+  return 'B';
+}
+
 //KNIGHT FUNCTIONS
 Knight::Knight(Colour colour) : ChessPiece(colour, 'N'){}
 
@@ -156,25 +176,68 @@ bool Knight::isValidMove(int s_row, int s_column, int d_row, int d_column, Chess
   return false;
 }
 
+char Knight::getName()
+{
+  if (getColour() == White)
+  {
+    return 'n';
+  }
+  return 'N';
+}
+
 //KING FUNCTIIONS
 King::King(Colour colour) : ChessPiece(colour, 'K'){}
 
 bool King::isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPiece *cb[8][8])
 {
-  int move_hor = abs(d_column - s_column);
-  int move_vert = abs(d_row - s_row);
+  int move_hor = d_column - s_column;
+  int move_vert = d_row - s_row;
 
-  if (move_hor == 1 && move_vert == move_hor) //check one square diagonally
+  if (abs(move_hor) == 1 && abs(move_vert) == abs(move_hor)) //check one square diagonally
   {
     return true;
   }
 
   //check for one square along row or column
-  if ((move_hor == 1 && move_vert == 0) || (move_hor == 0 && move_vert == 1))
+  if ((abs(move_hor) == 1 && abs(move_vert) == 0) || (abs(move_hor) == 0 && abs(move_vert) == 1))
   {
     return true;
   }
+
+  if (!hasBeenMoved()) //check for castling
+  {
+    if (move_hor == 2 && move_vert == 0)
+    {
+      if (cb[s_row][s_column+1] == nullptr && cb[s_row][s_column+2] == nullptr) //check two squares empty
+      {
+        if (!(cb[s_row][s_column + 3]->hasBeenMoved())) //check if castle been moved
+        {
+          return true;
+        }
+      }
+    }
+    if (move_hor == -2 && move_vert == 0)
+    {
+      if (cb[s_row][s_column-1] == nullptr && cb[s_row][s_column-2] == nullptr
+      && cb[s_row][s_column-3] == nullptr) //check three left squares empty
+      {
+        if (!(cb[s_row][s_column - 4]->hasBeenMoved())) //check if castle been moved
+        {
+          return true;
+        }
+      }
+    }
+  }
   return false;
+}
+
+char King::getName()
+{
+  if (getColour() == White)
+  {
+    return 'k';
+  }
+  return 'K';
 }
 
 //QUEEN FUNCTIONS
@@ -241,4 +304,13 @@ bool Queen::isValidMove(int s_row, int s_column, int d_row, int d_column, ChessP
     return true;
   }
   return false;
+}
+
+char Queen::getName()
+{
+  if (getColour() == White)
+  {
+    return 'q';
+  }
+  return 'Q';
 }
