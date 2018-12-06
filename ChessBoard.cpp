@@ -167,13 +167,13 @@ void ChessBoard::submitMove(const char *s_square, const char *d_square)
 
   if (isInCheckmate(current_turn)) //if move creates checkmate
   {
-    cout << current_turn << " is in checkmate." << endl;
+    cout << current_turn << " is in checkmate" << endl;
     return;
   }
 
   if (isInCheck(current_turn, cb)) //if move creates check on other team
   {
-    cout << current_turn << " is in check." << endl;
+    cout << current_turn << " is in check" << endl;
 
     k = findKing(current_turn, cb);
     static_cast<King *>(cb[k.row][k.column])->setCheck(true); //set king to incheck
@@ -182,7 +182,7 @@ void ChessBoard::submitMove(const char *s_square, const char *d_square)
 
   if (isInStalemate(current_turn)) //if move creates stalemate
   {
-    cout << current_turn << " is in stalemate." << endl;
+    cout << current_turn << " is in stalemate" << endl;
     return;
   }
 
