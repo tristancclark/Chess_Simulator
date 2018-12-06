@@ -87,6 +87,8 @@ void ChessBoard::submitMove(const char* s_square, const char* d_square)
   ChessPiece *&s_piece = current_board[s_row][s_column];
   ChessPiece *&d_piece = current_board[d_row][d_column];
   ChessPiece* temporary_board[8][8];
+  int k_row, k_column;
+  char k_name = 'K';
 
   if (s_square == d_square)
   {
@@ -118,7 +120,7 @@ void ChessBoard::submitMove(const char* s_square, const char* d_square)
   if (!s_piece->isValidMove(s_row, s_column, d_row, d_column, current_board))
   {
     cout << current_turn << "'s " << s_piece->getName() << " cannot move " << "from " << s_square << " to " << d_square << "!" << endl;
-    displayBoard();
+    //displayBoard();
     return;
   }
 
@@ -143,6 +145,8 @@ void ChessBoard::submitMove(const char* s_square, const char* d_square)
       return;
     }
     cout << current_turn << " is in check." << endl;
+    findPiece(k_name, current_turn, k_row, k_column, current_board);
+    static_cast<King *>(current_board[k_row][k_column])->setCheck(true);
     //displayBoard();
     return;
   }
@@ -152,7 +156,8 @@ void ChessBoard::submitMove(const char* s_square, const char* d_square)
     cout << current_turn << " is in stalemate." << endl;
     return;
   }
-
+  findPiece(k_name, current_turn, k_row, k_column, current_board);
+  static_cast<King *>(current_board[k_row][k_column])->setCheck(false);
 }
 
 void ChessBoard::imitateMove(ChessPiece *cb[8][8], ChessPiece *imitation_board[8][8], int s_row, int s_column, int d_row, int d_column)

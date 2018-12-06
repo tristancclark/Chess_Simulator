@@ -186,7 +186,7 @@ char Knight::getName()
 }
 
 //KING FUNCTIIONS
-King::King(Colour colour) : ChessPiece(colour, 'K'){}
+King::King(Colour colour) : ChessPiece(colour, 'K'), check(false){}
 
 bool King::isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPiece *cb[8][8])
 {
@@ -204,38 +204,41 @@ bool King::isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPi
     return true;
   }
 
-  if (!hasBeenMoved()) //check for castling
+  if (!isInCheck())
   {
-    if (move_hor == 2 && move_vert == 0)
+    if (!hasBeenMoved()) //check for castling
     {
-      if (cb[s_row][s_column+1] == nullptr && cb[s_row][s_column+2] == nullptr) //check two squares empty
+      if (move_hor == 2 && move_vert == 0)
       {
-        if (cb[s_row][s_column + 3] != nullptr) //check if castle still there
+        if (cb[s_row][s_column+1] == nullptr && cb[s_row][s_column+2] == nullptr) //check two squares empty
         {
-          if (!(cb[s_row][s_column + 3]->hasBeenMoved())) //check if castle been moved
+          if (cb[s_row][s_column + 3] != nullptr) //check if castle still there
           {
-            return true;
+            if (!(cb[s_row][s_column + 3]->hasBeenMoved())) //check if castle been moved
+            {
+              return true;
+            }
+          }
+        }
+      }
+      if (move_hor == -2 && move_vert == 0)
+      {
+        if (cb[s_row][s_column-1] == nullptr && cb[s_row][s_column-2] == nullptr
+          && cb[s_row][s_column-3] == nullptr) //check three left squares empty
+          {
+            if (cb[s_row][s_column - 4] != nullptr)
+            {
+              if (!(cb[s_row][s_column - 4]->hasBeenMoved())) //check if castle been moved
+              {
+                return true;
+              }
+            }
           }
         }
       }
     }
-    if (move_hor == -2 && move_vert == 0)
-    {
-      if (cb[s_row][s_column-1] == nullptr && cb[s_row][s_column-2] == nullptr
-      && cb[s_row][s_column-3] == nullptr) //check three left squares empty
-      {
-        if (cb[s_row][s_column - 4] != nullptr)
-        {
-          if (!(cb[s_row][s_column - 4]->hasBeenMoved())) //check if castle been moved
-          {
-            return true;
-          }
-        }
-      }
-    }
+      return false;
   }
-  return false;
-}
 
 char King::getName()
 {

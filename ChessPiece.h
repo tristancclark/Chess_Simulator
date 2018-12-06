@@ -71,11 +71,14 @@ public:
 
 class King : public ChessPiece
 {
+  bool check;
 public:
   King(Colour colour);
   ~King(){}
   bool isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPiece *cb[8][8]) override;
   char getName() override;
+  void setCheck(bool ch){check = ch;}
+  bool isInCheck(){return check;}
 };
 
 class Queen : public ChessPiece
