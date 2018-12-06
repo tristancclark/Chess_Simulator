@@ -210,9 +210,12 @@ bool King::isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPi
     {
       if (cb[s_row][s_column+1] == nullptr && cb[s_row][s_column+2] == nullptr) //check two squares empty
       {
-        if (!(cb[s_row][s_column + 3]->hasBeenMoved())) //check if castle been moved
+        if (cb[s_row][s_column + 3] != nullptr) //check if castle still there
         {
-          return true;
+          if (!(cb[s_row][s_column + 3]->hasBeenMoved())) //check if castle been moved
+          {
+            return true;
+          }
         }
       }
     }
@@ -221,9 +224,12 @@ bool King::isValidMove(int s_row, int s_column, int d_row, int d_column, ChessPi
       if (cb[s_row][s_column-1] == nullptr && cb[s_row][s_column-2] == nullptr
       && cb[s_row][s_column-3] == nullptr) //check three left squares empty
       {
-        if (!(cb[s_row][s_column - 4]->hasBeenMoved())) //check if castle been moved
+        if (cb[s_row][s_column - 4] != nullptr)
         {
-          return true;
+          if (!(cb[s_row][s_column - 4]->hasBeenMoved())) //check if castle been moved
+          {
+            return true;
+          }
         }
       }
     }

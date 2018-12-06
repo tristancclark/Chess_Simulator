@@ -118,7 +118,7 @@ void ChessBoard::submitMove(const char* s_square, const char* d_square)
   if (!s_piece->isValidMove(s_row, s_column, d_row, d_column, current_board))
   {
     cout << current_turn << "'s " << s_piece->getName() << " cannot move " << "from " << s_square << " to " << d_square << "!" << endl;
-    //displayBoard();
+    displayBoard();
     return;
   }
 
@@ -132,7 +132,7 @@ void ChessBoard::submitMove(const char* s_square, const char* d_square)
   }
 
   makeMove(s_square, d_square, s_row, s_column, d_row, d_column, current_board); //make move
-
+  //displayBoard();
   nextTurn(); //change turn
 
   if (isInCheck(current_turn, current_board)) //check if move creates check
@@ -152,7 +152,7 @@ void ChessBoard::submitMove(const char* s_square, const char* d_square)
     cout << current_turn << " is in stalemate." << endl;
     return;
   }
-  //displayBoard();
+
 }
 
 void ChessBoard::imitateMove(ChessPiece *cb[8][8], ChessPiece *imitation_board[8][8], int s_row, int s_column, int d_row, int d_column)
@@ -195,7 +195,8 @@ void ChessBoard::makeMove(const char *s_square, const char *d_square, int s_row,
         cb[s_row][s_column - 1] = cb[s_row][s_column - 4];
         cb[s_row][s_column - 4] = nullptr;
         cb[s_row][s_column - 1]->setBeenMoved();
-        cout << "CASTLING" << endl;
+        cout << "Left side castling has occurred. " << current_turn << "'s ";
+        cout << cb[s_row][s_column - 1]->getName() << " jumps the King." << endl;
       }
       if ((d_column - s_column) == 2)
       {
@@ -203,7 +204,8 @@ void ChessBoard::makeMove(const char *s_square, const char *d_square, int s_row,
         cb[s_row][s_column + 1] = cb[s_row][s_column + 3];
         cb[s_row][s_column + 3] = nullptr;
         cb[s_row][s_column + 1]->setBeenMoved();
-        cout << "CASTLING" << endl;
+        cout << "Right side castling has occurred. " << current_turn << "'s ";
+        cout << cb[s_row][s_column + 1]->getName() << " jumps the King." << endl;
       }
     }
   }
