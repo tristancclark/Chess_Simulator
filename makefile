@@ -12,4 +12,4 @@ $(EXE): $(OBJ)
 -include $(OBJ:.o=.d)
 
 clean:
-	rm -f *.o main *.d *.h.gch
+	rm -f *.o chess *.d *.h.gch
