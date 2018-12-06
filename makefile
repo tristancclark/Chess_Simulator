@@ -1,5 +1,5 @@
-OBJ = ChessPiece.o	ChessBoard.o	main.o
-EXE = main
+OBJ = ChessPiece.o	ChessBoard.o	ChessMain.o
+EXE = chess
 CXX = g++
 CXXFLAGS = -Wall	-g	-MMD	-std=c++11
 
